@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import Button from './Button';
-import HandButton from './HandButton';
+import Button from './RSPButton';
+import HandButton from './HandButtons';
 import HandIcon from './HandIcon';
 import { generateRandomHand, getResult } from './utils';
 
