@@ -1,15 +1,21 @@
+import { useState } from 'react';
 import Button from './Button';
 import Dice from './Dice';
 
-function App() {
+function random(n) {
+  return Math.ceil(Math.random() * n);
+}
+
+function DiceGame() {
   //dice game logic
+  const [num, setNum] = useState(1);
+
   const handleRollClick = () => {
-    console.log('던지기 버튼 클릭!');
+    const nextNum = random(6);
+    setNum(nextNum);
   };
 
-  const handleClearClick = () => {
-    console.log('처음부터 버튼 클릭!');
-  };
+  const handleClearClick = () => setNum(1);
 
   return (
     <div>
@@ -18,9 +24,9 @@ function App() {
         <Button onClick={handleRollClick}>던지기</Button>
         <Button onClick={handleClearClick}>처음부터</Button>
       </div>
-      <Dice color={'red'} num={2} />
+      <Dice color={'red'} num={num} />
     </div>
   );
 }
 
-export default App;
+export default DiceGame;
