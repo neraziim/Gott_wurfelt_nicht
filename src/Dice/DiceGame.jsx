@@ -1,9 +1,8 @@
-/*
 import Button from './Button';
 import Dice from './Dice';
 
 function App() {
-  //game select
+  //dice game logic
   const handleRollClick = () => {
     console.log('던지기 버튼 클릭!');
   };
@@ -25,4 +24,3 @@ function App() {
 }
 
 export default App;
-*/

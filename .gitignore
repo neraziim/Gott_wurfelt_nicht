@@ -25,4 +25,4 @@ dist-ssr
 
 
 #그림파일
-src/assets/*.svg
+src/*/assets/*.svg
