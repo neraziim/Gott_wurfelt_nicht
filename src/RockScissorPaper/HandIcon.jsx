@@ -8,9 +8,9 @@ const IMAGES = {
   paper: paperImg,
 };
 
-function HandIcon({ value, onClick}) {
+function HandIcon({ value }) {
   const src = IMAGES[value];
-  return <img src={src} alt={value} onClick={onClick}/>;
+  return <img src={src} alt={value} />;
 }
 
 export default HandIcon;
