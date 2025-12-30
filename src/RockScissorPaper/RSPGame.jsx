@@ -1,10 +1,28 @@
+import { useState } from 'react';
 import Button from './Button';
 import HandButton from './HandButton';
+import HandIcon from './HandIcon';
+import { generateRandomHand } from './utils';
 
 function RSPGame() {
-  const handleButtonClick = (value) => console.log(value.value);
+  const initHand = 'rock'
+  // hand와 otherHand를 state로 바꿔주세요
+  const [hand, setHand] = useState(initHand);
+  const [otherHand, setOtherHand] = useState(initHand);
 
-  const handleClearClick = () => console.log('처음부터');
+  const handleButtonClick = (nextHand) => {
+    // hand의 값을 nextHand로 바꿔주세요
+    setHand(nextHand);
+
+    // otherHand의 값을 generateRandomHand()의 리턴값으로 바꿔주세요
+  setOtherHand(generateRandomHand());
+  };
+
+  const handleClearClick = () => {
+    // hand와 otherHand의 값을 'rock'으로 바꿔주세요
+    setHand(initHand);
+    setOtherHand(initHand);
+  };
 
   return (
     <div>
@@ -16,6 +34,14 @@ function RSPGame() {
         <HandButton value="paper" onClick={handleButtonClick} />
       </div>
       <div>
+        <h2>결과</h2>
+        <div>
+          나 <HandIcon value={hand} />
+        </div>
+        <br />
+        <div>
+          상대 <HandIcon value={otherHand} />
+        </div>
         <Button onClick={handleClearClick}>처음부터</Button>
       </div>
     </div>
