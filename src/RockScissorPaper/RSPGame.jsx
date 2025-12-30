@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import Button from './RSPButton';
 import HandButton from './HandButtons';
-import HandIcon from './HandIcon';
 import { generateRandomHand, getResult } from './utils';
+import ResultCard from './ResultCard';
 
 const INIT_VALUE = 'rock';
 
@@ -14,16 +14,17 @@ function RSPGame() {
   const [RSPHistory, setRSPHistory] = useState([]);
 
   const handleButtonClick = (nextHand) => {
+    const nextOtherHand = generateRandomHand();
+    const nextResult = getResult(nextHand, nextOtherHand);
     setHand(nextHand);
-    setOtherHand(generateRandomHand());
-    const nextResult = getResult(hand, otherHand);
+    setOtherHand(nextOtherHand);
 
     if (nextResult === '승리') {
       setScore(score + 1);
     }
 
     if (nextResult === '패배') {
-      setOtherScore(score + 1);
+      setOtherScore(otherScore + 1);
     }
 
     setRSPHistory([...RSPHistory, nextResult]);
@@ -48,12 +49,20 @@ function RSPGame() {
       </div>
       <div>
         <h2>결과</h2>
-        <div>
-          나 <HandIcon value={hand} /> 점수:{score}
-        </div>
+        <ResultCard
+          name="나"
+          hand={hand}
+          score={score}
+          result={getResult(hand, otherHand)}
+        />
         <br />
         <div>
-          상대 <HandIcon value={otherHand} /> 점수: {otherScore}
+          <ResultCard
+            name="상대"
+            hand={otherHand}
+            score={otherScore}
+            result={getResult(otherHand, hand)}
+          />
         </div>
         <h2>승부 기록</h2>
         <div>{RSPHistory.join(' ')}</div>
