@@ -2,26 +2,39 @@ import { useState } from 'react';
 import Button from './Button';
 import HandButton from './HandButton';
 import HandIcon from './HandIcon';
-import { generateRandomHand } from './utils';
+import { generateRandomHand, getResult } from './utils';
+
+const INIT_VALUE = 'rock';
 
 function RSPGame() {
-  const initHand = 'rock'
-  // hand와 otherHand를 state로 바꿔주세요
-  const [hand, setHand] = useState(initHand);
-  const [otherHand, setOtherHand] = useState(initHand);
+  const [hand, setHand] = useState(INIT_VALUE);
+  const [otherHand, setOtherHand] = useState(INIT_VALUE);
+  const [score, setScore] = useState(0);
+  const [otherScore, setOtherScore] = useState(0);
+  const [RSPHistory, setRSPHistory] = useState([]);
 
   const handleButtonClick = (nextHand) => {
-    // hand의 값을 nextHand로 바꿔주세요
     setHand(nextHand);
+    setOtherHand(generateRandomHand());
+    const nextResult = getResult(hand, otherHand);
 
-    // otherHand의 값을 generateRandomHand()의 리턴값으로 바꿔주세요
-  setOtherHand(generateRandomHand());
+    if (nextResult === '승리') {
+      setScore(score + 1);
+    }
+
+    if (nextResult === '패배') {
+      setOtherScore(score + 1);
+    }
+
+    setRSPHistory([...RSPHistory, nextResult]);
   };
 
   const handleClearClick = () => {
-    // hand와 otherHand의 값을 'rock'으로 바꿔주세요
-    setHand(initHand);
-    setOtherHand(initHand);
+    setHand(INIT_VALUE);
+    setOtherHand(INIT_VALUE);
+    setScore(0);
+    setOtherScore(0);
+    setRSPHistory([]);
   };
 
   return (
@@ -36,12 +49,14 @@ function RSPGame() {
       <div>
         <h2>결과</h2>
         <div>
-          나 <HandIcon value={hand} />
+          나 <HandIcon value={hand} /> 점수:{score}
         </div>
         <br />
         <div>
-          상대 <HandIcon value={otherHand} />
+          상대 <HandIcon value={otherHand} /> 점수: {otherScore}
         </div>
+        <h2>승부 기록</h2>
+        <div>{RSPHistory.join(' ')}</div>
         <Button onClick={handleClearClick}>처음부터</Button>
       </div>
     </div>
